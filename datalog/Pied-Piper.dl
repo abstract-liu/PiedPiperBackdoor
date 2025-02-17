@@ -25,6 +25,7 @@ isBlock(b) :- block(_, b).
 .input in_function
 
 .decl StatementInPublicFunction(s: Statement, f: Function)
+.output StatementInPublicFunction
 
 StatementInPublicFunction(s, f) :-
   block(s, b),
@@ -113,6 +114,7 @@ OnlyOwner(stmtLoad) :-
 
 /* balances[_to] += _amount */
 .decl BalanceAddStmt(func: Function, s:Statement)
+.output BalanceAddStmt
 BalanceAddStmt(func, stmt_add) :-
 
   // V70 = SHA3 0x0 0x40
@@ -172,6 +174,7 @@ BalanceSubStmt(func, stmt_sub) :-
 //.decl SepcThreeParamOfFunction(f: Function, from_: Variable, to_: Variable, amount_: Variable)
 //SepcThreeParamOfFunction(f, from_, to_, amount_) :-
 .decl SepcThreeParamOfFunction(f: Function)
+.output SepcThreeParamOfFunction
 SepcThreeParamOfFunction(f) :-
   op(stmt1, "CALLDATALOAD"),
   def(var1, stmt1),
@@ -213,6 +216,7 @@ SepcThreeParamOfFunction(f) :-
 //.decl SepcTwoParamOfFunction(f: Function, add_: Variable, amount_: Variable)
 //SepcTwoParamOfFunction(f, add_, amount_) :-
 .decl SepcTwoParamOfFunction(f: Function)
+.output SepcTwoParamOfFunction
 SepcTwoParamOfFunction(f) :-
   op(stmt3, "CALLDATALOAD"),
   def(var2, stmt3),

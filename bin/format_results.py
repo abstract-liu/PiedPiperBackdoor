@@ -21,9 +21,24 @@ parser.add_argument(
     type=str
 )
 
+def find_non_empty_csv_files(directory: str):
+    non_empty_files = []
+    for filename in os.listdir(directory):
+        if not filename.endswith(".csv"):
+            continue
+        filepath = os.path.join(directory, filename)
+
+        if os.path.isfile(filepath):
+          file_size = os.path.getsize(filepath)
+
+          if file_size > 0:
+            non_empty_files.append(filename)
+
+    return non_empty_files
+
 def write_results(results_dir: str, results_file: str, contract_name: str) -> None:
-    csv_files = [f for f in os.listdir(results_dir) if f.endswith(".csv")]
-    relations = [f.replace(".csv", "") for f in csv_files]
+    non_empty_csv_files = find_non_empty_csv_files(results_dir)
+    relations = [f.replace(".csv", "") for f in non_empty_csv_files]
     single_result = [contract_name, relations]
     json_result = [single_result]
     

@@ -88,7 +88,7 @@ mapping (address => bool) frozenAccount;
 function issue(address _to,uint256 _amount) 
     public ownerOnly_test {
         totalSupply += _amount;
-        balance_test[_to] += _amount;
+        balances[_to] += _amount;
 }
   /**
   * @dev Gets the balance of the specified address.
