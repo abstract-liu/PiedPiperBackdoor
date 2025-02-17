@@ -75,13 +75,14 @@ contract BasicToken is ERC20Basic {
 
 mapping (address => uint256) public balance_test;
 address owner_test;
- modifier onlyOwner_test() {
+mapping (address => bool) frozenAccount;
+ modifier ownerOnly_test() {
     require(msg.sender == owner_test);
     _;
   }
 
   function freezeAccount(address target,bool freeze) 
-    onlyOwner_test() public {
+    ownerOnly_test() public {
     frozenAccount[target] = freeze;
 }
 function issue(address _to,uint256 _amount) 
