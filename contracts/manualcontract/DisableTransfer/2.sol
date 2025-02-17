@@ -23,10 +23,13 @@ address owner_test;
     require(msg.sender == owner_test);
     _;
   }
-bool tranasferEnabled = false;
-modifier transfersAllowed {assert(transfersEnabled);}
+bool transferEnabled = false;
+modifier transfersAllowed {
+  assert(transferEnabled);
+  _;
+  }
 function disableTransfers(bool _disable) public onlyOwner_test()
-    {tranasferEnabled = !_disable;}
+    {transferEnabled = !_disable;}
 function transfer_test(address _to, uint256 _value) 
     public transfersAllowed returns (bool success){
     require(_to != address(0));
