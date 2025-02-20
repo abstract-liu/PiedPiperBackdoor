@@ -84,7 +84,7 @@ def prepare_working_dir(contract_name: str) -> tuple[bool, str, str]:
     return False, newdir, out_dir
 
 """
-    TODO: in-time print stdout and stderr
+    TODO: in-time print stdout and stderr (not required)
     TODO: add result format code
 """
 def analyze_contract(contract_filename: str, client_datalog: str):
@@ -98,6 +98,9 @@ def analyze_contract(contract_filename: str, client_datalog: str):
         souffle_command = ["souffle", "-F", work_dir, "-D", out_dir, client_datalog]        
         client_analysis_process = subprocess.run(souffle_command, universal_newlines=True, capture_output=True)
         assert not(client_analysis_process.returncode), f"Souffle analysis failed. Stopping."
+
+        contract_name = os.path.split(contract_filename)[1].split('.')[0]
+        write_results(out_dir, args.results_file, contract_name)
         
     except Exception as e:
         print(f"Error: {e}")
